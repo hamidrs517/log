@@ -1,0 +1,57 @@
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+  <mat-card class="filter-card">
+    <!-- <mat-card-header>
+      <mat-card-title></mat-card-title>
+    </mat-card-header> -->
+
+    <mat-card-content>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="page Number" formControlName="pageNumber">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="page Size" formControlName="pageSize">
+        <!-- <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
+              First name is <strong>required</strong>
+            </mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="alerts" formControlName="alerts">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="prm1" formControlName="prm1">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="prm2" formControlName="prm2">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="prm3" formControlName="prm3">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Type" formControlName="alertType">
+          <mat-option *ngFor="let aType of alertTypeList" [value]="aType.value">
+            {{ aType.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="code" formControlName="alerts">
+          <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
+            {{ alert.alertId }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
