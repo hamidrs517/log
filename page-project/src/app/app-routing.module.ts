@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { IrisaAlertLogPagePresenter } from './alert-log-page/irisa-alert-log-page-presenter';
+import { IrisaAlertLogPagePresenter } from './pages/alert-log-page/irisa-alert-log-page-presenter';
 
 
 const routes: Routes = [
