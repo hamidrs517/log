@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { IAlertLogItem } from 'src/app/models/alert-log-item';
 
 @Component({
@@ -20,6 +20,8 @@ export class IrisaAlertLogTableView implements AfterViewInit, OnInit {
   ];
 
   @Input('alert-log-list') alertLogList: IAlertLogItem[];
+
+  @Output('get-log-list') getLogList: EventEmitter<PageEvent> = new EventEmitter<PageEvent>()
 
   constructor() { }
 

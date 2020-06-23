@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -9,22 +9,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class IrisaAlertLogfilterView implements OnInit {
 
-  @Input('alert-filter') alertFilter: IAlertLogFilter
+  // @Input('alert-filter') alertFilter: IAlertLogFilter
   @Input('alert-list') alertList: any
+  @Output('on-search-data') onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
+  @Input('alert-type-list') alertTypeList
+  @Input('date-periods') datePeriods
 
   filterForm = this.fb.group({
-    pageNumber: [
-      null,
-      Validators.compose([
-        Validators.required, Validators.minLength(1)
-      ])
-    ],
-    pageSize: [
-      null,
-      Validators.compose([
-        Validators.required, Validators.minLength(1)
-      ])
-    ],
     alerts: [[]],
     alertType: [null],
     prm1: [null],
@@ -35,19 +26,7 @@ export class IrisaAlertLogfilterView implements OnInit {
     toDate: [null]
   });
 
-  alertTypeList = [
-    { name: "", value: undefined },
-    { name: "INFO", value: 1 },
-    { name: "WARNING", value: 2 },
-    { name: "DANGER", value: 3 },
-    { name: "SUCCESS", value: 4 }
-  ];
-  dateList = [
-    { name: "", value: 0 },
-    { name: "Last Hour", value: 1 },
-    { name: "Last 12 Hours", value: 2 },
-    { name: "Last Day", value: 3 }
-  ];
+
 
   // getSenderBitAddressErrorMessage() {
   //   return this.senderBitAddress.hasError('required') ? 'Sender Bitcoin Address is required' :
@@ -65,16 +44,16 @@ export class IrisaAlertLogfilterView implements OnInit {
   get bodyPhrase() { return this.filterForm.get('bodyPhrase'); }
   get fromDate() { return this.filterForm.get('fromDate'); }
   get toDate() { return this.filterForm.get('toDate'); }
-  get f() { return this.filterForm.controls; }
+  // get f() { return this.filterForm.controls; }
 
   constructor(private fb: FormBuilder) { }
 
   onSubmit() {
-    alert('Thanks!');
+    this.onSearchData.emit(
+      this.filterForm.getRawValue()
+    )
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
 }

@@ -1,21 +1,21 @@
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
   <mat-card class="filter-card">
-    <!-- <mat-card-header>
-      <mat-card-title></mat-card-title>
-    </mat-card-header> -->
+    <mat-card-header>
+      <mat-card-title> Alert Log List</mat-card-title>
+    </mat-card-header>
 
     <mat-card-content>
 
-      <mat-form-field class="full-width">
+      <!-- <mat-form-field class="full-width">
         <input matInput placeholder="page Number" formControlName="pageNumber">
-      </mat-form-field>
+      </mat-form-field> -->
 
-      <mat-form-field class="full-width">
+      <!--  <mat-form-field class="full-width">
         <input matInput placeholder="page Size" formControlName="pageSize">
-        <!-- <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
+        <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
               First name is <strong>required</strong>
-            </mat-error> -->
-      </mat-form-field>
+            </mat-error>
+      </mat-form-field> -->
 
       <mat-form-field class="full-width">
         <input matInput placeholder="alerts" formControlName="alerts">
@@ -60,7 +60,7 @@
         <mat-label>Input disabled</mat-label>
         <input matInput [matDatepicker]="dp3" [formControl]="fromDate">
         <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        <mat-datepicker touchUi #dp3 disabled="false"></mat-datepicker>
       </mat-form-field>
 
     </mat-card-content>
