@@ -19,7 +19,7 @@ export class IrisaAlertLogTableView implements AfterViewInit, OnInit {
     'alertId', 'logText', 'logDate', 'title'
   ];
 
-  @Input('alert-list') alertList: IAlertLogItem[];
+  @Input('alert-log-list') alertLogList: IAlertLogItem[];
 
   constructor() { }
 

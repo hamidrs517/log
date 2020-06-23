@@ -6,7 +6,7 @@ import { IAlertLogItem } from 'src/app/models/alert-log-item';
   selector: 'irisa-alert-log-table-presenter',
   template: `
   <irisa-alert-log-table-view
-    [alert-list]="alertLogList"
+    [alert-log-list]="alertLogList"
   >
   </irisa-alert-log-table-view>
   `,
