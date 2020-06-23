@@ -4,7 +4,8 @@ import { IrisaAlertLogPagePresenter } from './alert-log-page/irisa-alert-log-pag
 
 
 const routes: Routes = [
-  { path: 'alert-log-list', component: IrisaAlertLogPagePresenter }
+  { path: 'alert-log-list', component: IrisaAlertLogPagePresenter },
+  { path: '', redirectTo: 'alert-log-list', pathMatch: 'full' }
 ];
 
 @NgModule({
