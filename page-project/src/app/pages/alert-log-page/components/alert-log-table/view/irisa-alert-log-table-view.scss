@@ -1,3 +1,25 @@
 .full-width-table {
   width: 100%;
 }
+.title{
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  padding: 3px;
+  color: gray;
+  margin: 0 5px;
+  min-width: 75px;
+}
+.p-0{
+  padding-left: 0;
+  padding-right: 0;
+}
+.mat-row::after{
+  content: none;
+}
+mat-header-row{
+  background: rgba(0, 0, 0);
+}
+
+mat-row:nth-child(2n+1){
+  background: rgba(0, 0, 0, 0.3);
+}
