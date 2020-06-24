@@ -1,38 +1,47 @@
+<mat-card id='tableResult' style="margin: 10px;">
+  <mat-card-header>
+    <mat-card-title>Alert Log List</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-table [dataSource]="alertLogList" class="mat-elevation-z8">
 
-<mat-table [dataSource]="alertLogList" class="mat-elevation-z8">
-
-  <!-- <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col}}">
+      <!-- <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col}}">
     <mat-header-cell *matHeaderCellDef> {{col}} </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element[col]}} </mat-cell>
   </ng-container> -->
 
-  <ng-container matColumnDef="alertId">
-    <mat-header-cell fxFlex.gt-sm="15%" ngClass.lt-md="p-0" *matHeaderCellDef> alertId </mat-header-cell>
-    <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="15%" ngClass.lt-md="p-0" *matCellDef="let element"><span class="title" fxHide.gt-sm>Alert ID: </span> {{element.alertId}} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="alertId">
+        <mat-header-cell fxFlex.gt-sm="15%" ngClass.lt-md="p-0" *matHeaderCellDef> alertId </mat-header-cell>
+        <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="15%" ngClass.lt-md="p-0" *matCellDef="let element"><span class="title"
+            fxHide.gt-sm>Alert ID: </span> {{element.alertId}} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="logText">
-    <mat-header-cell fxFlex.gt-sm="40%" *matHeaderCellDef> logText </mat-header-cell>
-    <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="40%" *matCellDef="let element"><span class="title" fxHide.gt-sm>Log Text: </span> {{element.logText}} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="logText">
+        <mat-header-cell fxFlex.gt-sm="40%" *matHeaderCellDef> logText </mat-header-cell>
+        <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="40%" *matCellDef="let element"><span class="title" fxHide.gt-sm>Log
+            Text: </span> {{element.logText}} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="logDate">
-    <mat-header-cell fxFlex.gt-sm="25%" *matHeaderCellDef> logDate </mat-header-cell>
-    <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="25%" *matCellDef="let element"><span class="title" fxHide.gt-sm>Log Date: </span> {{element.logDate}} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="logDate">
+        <mat-header-cell fxFlex.gt-sm="25%" *matHeaderCellDef> logDate </mat-header-cell>
+        <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="25%" *matCellDef="let element"><span class="title" fxHide.gt-sm>Log
+            Date: </span> {{element.logDate}} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="title">
-    <mat-header-cell fxFlex.gt-sm="20%" *matHeaderCellDef> title </mat-header-cell>
-    <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="20%" *matCellDef="let element"><span class="title" fxHide.gt-sm>Title: </span> {{element.title}} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="title">
+        <mat-header-cell fxFlex.gt-sm="20%" *matHeaderCellDef> title </mat-header-cell>
+        <mat-cell fxFlex.sm="50%" fxFlex.gt-sm="20%" *matCellDef="let element"><span class="title" fxHide.gt-sm>Title:
+          </span> {{element.title}} </mat-cell>
+      </ng-container>
 
+      <mat-header-row fxHide.lt-md *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="start start"
+        *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-  <mat-header-row fxHide.lt-md *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-  <mat-row fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="start start" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
-
-</mat-table>
-
-<mat-paginator #paginator [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]" [length]="alertLogList?.length"
-  [pageSizeOptions]="[5, 10, 25, 100]" (page)="getLogList.emit($event)">
-</mat-paginator>
+    <mat-paginator #paginator [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]" [length]="alertLogList?.length"
+      [pageSizeOptions]="[5, 10, 25, 100]" (page)="getLogList.emit($event)">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

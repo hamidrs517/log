@@ -51,7 +51,9 @@ export class IrisaAlertLogfilterView implements OnInit {
   onSubmit() {
     this.onSearchData.emit(
       this.filterForm.getRawValue()
-    )
+    );
+    let el=document.getElementById('tableResult');
+    el.scrollIntoView({behavior:"smooth"});
   }
 
   ngOnInit() { }
