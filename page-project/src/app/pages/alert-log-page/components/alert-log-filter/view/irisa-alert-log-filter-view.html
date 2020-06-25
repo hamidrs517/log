@@ -41,12 +41,34 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-select placeholder="code" formControlName="alerts" multiple>
+
+      <!-- <mat-form-field>
+        <input type="text" placeholder="code" matInput formControlName="alerts" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
-            {{ alert.alertId }}
+            {{alert.alertId}}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
+      </mat-form-field> -->
+
+
+      <mat-form-field>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let item of items" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(item)">
+            {{item}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input #itemInput type="text" placeholder="Select a book" matInput formControlName="alerts"
+            [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let alert of filteredAlertList$ | async" [value]="alert.alertId">
+            {{alert.alertId}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <!-- <mat-form-field>

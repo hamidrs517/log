@@ -22,6 +22,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SearchListPresenter } from './pages/alert-log-page/components/search-list/search-list-presenter';
+import { SearchListView } from './pages/alert-log-page/components/search-list/view/search-list-view';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,8 @@ import { MatDividerModule } from '@angular/material/divider';
     IrisaAlertLogPagePresenter,
     IrisaAlertLogfilterView,
     IrisaAlertLogFilterPresenter,
+    SearchListPresenter,
+    SearchListView
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,10 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDatepickerModule,
     MatNativeDateModule,
     // MatMomentDateModule
-    MatDividerModule
+    MatDividerModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
