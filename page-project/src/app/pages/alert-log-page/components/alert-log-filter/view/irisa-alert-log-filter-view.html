@@ -1,4 +1,4 @@
-<form [formGroup]="filterForm" (ngSubmit)="onSubmit();">
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
   <mat-card class="filter-card" style="margin: 10px;">
     <mat-card-header>
       <mat-card-title>Set Log Filters</mat-card-title>
@@ -6,33 +6,39 @@
 
     <mat-card-content fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="17px">
 
-      <!-- <mat-form-field class="full-width">
-        <input matInput placeholder="page Number" formControlName="pageNumber">
-      </mat-form-field> -->
 
-      <!--  <mat-form-field class="full-width">
-        <input matInput placeholder="page Size" formControlName="pageSize">
-        <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
-              First name is <strong>required</strong>
-            </mat-error>
-      </mat-form-field> -->
-
-      <!-- <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <mat-select placeholder="code" formControlName="alerts" multiple>
-          <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
-            {{ alert.alertId }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
-
-      <mat-form-field class="full-width" fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <input matInput placeholder="alerts" formControlName="alerts">
+      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <mat-label>From Data</mat-label>
+        <input matInput [matDatepicker]="fromDateDp" [formControl]="fromDate">
+        <mat-datepicker-toggle matSuffix [for]="fromDateDp"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #fromDateDp disabled="false"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <mat-label>To Data</mat-label>
+        <input matInput [matDatepicker]="toDateDp" [formControl]="toDate">
+        <mat-datepicker-toggle matSuffix [for]="toDateDp"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #toDateDp disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <input matInput placeholder="prm1" formControlName="prm1">
+      </mat-form-field>
+
+      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <input matInput placeholder="prm2" formControlName="prm2">
+      </mat-form-field>
+
+      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <input matInput placeholder="prm3" formControlName="prm3">
+      </mat-form-field>
+      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
         <mat-select placeholder="Type" formControlName="alertType">
           <mat-option *ngFor="let aType of alertTypeList" [value]="aType.value">
             {{ aType.name }}
@@ -41,66 +47,51 @@
       </mat-form-field>
 
       <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <mat-chip-list #chipList>
-          <mat-chip *ngFor="let item of items" [selectable]="selectable" [removable]="removable"
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <mat-chip-list #chipListCode>
+          <mat-chip *ngFor="let item of selectedAlerts" [selectable]="selectable" [removable]="removable"
             (removed)="remove(item)">
-            {{item}}
+            {{item.alertId}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input #itemInput type="text" placeholder="select alerts" matInput formControlName="alerts"
-            [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)">
+          <input #itemInput type="number" placeholder="select alerts Code" matInput formControlName="alerts"
+            [matAutocomplete]="autoCode" [matChipInputFor]="chipListCode"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
 
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selected($event)">
+        <mat-autocomplete #autoCode="matAutocomplete" [displayWith]="displayWithCode"
+          (optionSelected)="selected($event)">
           <mat-option *ngFor="let alert of filteredAlertList$ | async" [value]="alert.alertId">
             {{alert.alertId}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
 
-      <!-- <mat-form-field>
-        <mat-label>Moment.js datepicker</mat-label>
-        <input matInput [matDatepicker]="dp" [formControl]="fromDate">
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp></mat-datepicker>
-      </mat-form-field> -->
-
-      <mat-form-field>
-        <mat-label>From Data</mat-label>
-        <input matInput [matDatepicker]="fromDateDp" [formControl]="fromDate">
-        <mat-datepicker-toggle matSuffix [for]="fromDateDp"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #fromDateDp disabled="false"></mat-datepicker>
-      </mat-form-field>
-
       <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <mat-label>To Data</mat-label>
-        <input matInput [matDatepicker]="toDateDp" [formControl]="toDate">
-        <mat-datepicker-toggle matSuffix [for]="toDateDp"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #toDateDp disabled="false"></mat-datepicker>
-      </mat-form-field>
+        fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="fill">
+        <mat-chip-list #chipListTitle>
+          <mat-chip *ngFor="let alt of selectedAlerts" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(alt)">
+            {{alt.title}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input #itemInput type="text" placeholder="Select Alerts Name" matInput formControlName="alerts"
+            [matAutocomplete]="autoTitle" [matChipInputFor]="chipListTitle"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
 
-      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <input matInput placeholder="prm1" formControlName="prm1">
-      </mat-form-field>
-
-      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <input matInput placeholder="prm2" formControlName="prm2">
-      </mat-form-field>
-
-      <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-        fxFlex.gt-md="0 1 calc(20% - 17px)">
-        <input matInput placeholder="prm3" formControlName="prm3">
+        <mat-autocomplete #autoTitle="matAutocomplete" [displayWith]="displayWithTitle"
+          (optionSelected)="selected($event)">
+          <mat-option *ngFor="let alert of filteredAlertList$ | async" [value]="alert.alertId">
+            {{alert.title}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Submit</button>
-      <button mat-raised-button color="accent" type="reset">Clear</button>
+      <button mat-raised-button color="accent" type="button" (click)="resetForm()">Clear</button>
     </mat-card-actions>
   </mat-card>
 </form>

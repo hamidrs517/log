@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, switchMap, map } from 'rxjs/operators';
 import { IAlertLogItem } from 'src/app/models/alert-log-item';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { IAlert } from 'src/app/models/alert';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'irisa-alert-log-filter-view',
@@ -16,36 +18,33 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 export class IrisaAlertLogfilterView implements OnInit {
 
   // @Input('alert-filter') alertFilter: IAlertLogFilter
-  @Input('alert-list') alertList$: Observable<IAlertLogItem[]>;
-  @Output('on-search-data') onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
+  @Input('alert-list') alertList: IAlert[]
+
+  @Output('on-search-data') onSearchData: EventEmitter<IAlert> = new EventEmitter<IAlert>()
   @Input('alert-type-list') alertTypeList
   @Input('date-periods') datePeriods
 
-  filteredAlertList$: Observable<IAlertLogItem[]>;
+  filteredAlertList$: Observable<IAlert[]>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredItems: IAlertLogItem[];
-  items: string[] = [];
+  filteredAlerts: IAlert[];
+  selectedAlerts: IAlert[] = [];
   visible = true;
   selectable = true;
   removable = true;
 
-  @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  // @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
+  // @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('autoCode') matAutocompleteCode: MatAutocomplete;
+  @ViewChild('autoTitle') matAutocompleteTitle: MatAutocomplete;
+  @ViewChild('itemInput', { static: false }) itemInput: ElementRef<HTMLInputElement>;
+  // @ViewChild('autoCode', { static: false }) matAutocompleteCode: MatAutocomplete;
+  // @ViewChild('autoName', { static: false }) matAutocompleteName: MatAutocomplete;
 
 
-  filterForm = this.fb.group({
-    alerts: [[]],
-    alertType: [null],
-    prm1: [null],
-    prm2: [null],
-    prm3: [null],
-    bodyPhrase: [null],
-    fromDate: [null],
-    toDate: [null]
-  });
+  filterForm: FormGroup
 
-  get pageNumber() { return this.filterForm.get('pageNumber'); }
-  get pageSize() { return this.filterForm.get('pageSize'); }
+  // get pageNumber() { return this.filterForm.get('pageNumber'); }
+  // get pageSize() { return this.filterForm.get('pageSize'); }
   get alerts() { return this.filterForm.get('alerts'); }
   get alertType() { return this.filterForm.get('alertType'); }
   get prm1() { return this.filterForm.get('prm1'); }
@@ -63,53 +62,72 @@ export class IrisaAlertLogfilterView implements OnInit {
     this.onSearchData.emit(
       this.filterForm.getRawValue()
     );
-    let el=document.getElementById('tableResult');
-    el.scrollIntoView({behavior:"smooth"});
+    let el = document.getElementById('tableResult');
+    el.scrollIntoView({ behavior: "smooth" });
   }
+
+  initForm(): void {
+    this.filterForm = this.fb.group({
+      alerts: [null],
+      alertType: [null],
+      prm1: [null],
+      prm2: [null],
+      prm3: [null],
+      bodyPhrase: [null],
+      fromDate: [null],
+      toDate: [null]
+    });
+  }
+
+  resetForm() {
+    this.selectedAlerts = []
+    this.alerts.setValue([])
+    this.alertType.setValue(null)
+    this.prm1.setValue(null)
+    this.prm2.setValue(null)
+    this.prm3.setValue(null)
+    this.fromDate.setValue(null)
+    this.toDate.setValue(null)
+  }
+
 
   ngOnInit() {
-    this.alerts.valueChanges.subscribe(res => {
-      this.filteredAlertList$ = this.filterAlertList(res)
-    })
-  }
-
-  private filterAlertList(value: string) {
-    let filterValue = '';
-    if (value.length > 0) {
-      filterValue = value
-      return this.alertList$.pipe(
-        map(
-          alerts => {
-            console.info("alerts", alerts)
-            return alerts.filter(alert => alert.alertId.toLowerCase().includes(filterValue))
+    this.initForm()
+    this.filteredAlertList$ = this.alerts.valueChanges
+      .pipe(
+        map(value => {
+          console.warn("typeof value", typeof value)
+          return (typeof value === 'string' || typeof value === 'number') ? value : value.alertId
+        }),
+        map((value) => {
+          if (typeof value === 'string') {
+            return value ? this._filterByName(value) : (this.alertList ? this.alertList.slice() : [])
+          } else if (typeof value === 'number') {
+            return value ? this._filterByCode(value) : (this.alertList ? this.alertList.slice() : [])
           }
-        )
+        })
       );
-    } else {
-      return this.alertList$;
-    }
   }
 
-  displayFn(alert?: any): string {
-    return alert ? alert.name : '';
+  private _filterByCode(value): IAlert[] {
+    const filterValue = value;
+    return this.alertList.filter(alert => alert.alertId.indexOf(filterValue) === 0);
+  }
+
+  private _filterByName(value): IAlert[] {
+    const filterValue = value.toLowerCase();
+    return this.alertList.filter(alert => alert.title.toLowerCase().indexOf(filterValue) === 0);
   }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
+    console.warn("add", event)
     // Add our item
     if ((value || '').trim()) {
-      this.alertList$.pipe(
-        map(alert => {
-          alert.push(
-            {
-              alertId: value.trim(),
-            } as IAlertLogItem
-          )
-        })
-      )
-
+      // this.selectedAlerts.push(
+      //   value,
+      // )
     }
 
     // Reset the input value
@@ -117,21 +135,33 @@ export class IrisaAlertLogfilterView implements OnInit {
       input.value = '';
     }
 
-    this.alerts.setValue([]);
+    this.alerts.setValue(null);
   }
 
-  remove(item: string): void {
-    const index = this.items.indexOf(item);
-
+  remove(alert: IAlert): void {
+    const index = this.selectedAlerts.findIndex(alt => alt.alertId === alert.alertId);
     if (index >= 0) {
-      this.items.splice(index, 1);
+      this.selectedAlerts.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     console.warn("event", event)
-    this.items.push(event.option.value);
+    const selectedAlert = this.alertList.find(altList => altList.alertId === event.option.value)
+    this.selectedAlerts.push(selectedAlert);
     this.itemInput.nativeElement.value = '';
-    this.alerts.setValue(this.items);
+    const selectedAlertIds = this.selectedAlerts.map(alt => alt.alertId)
+    this.alerts.setValue(selectedAlertIds);
   }
+
+
+  displayWithCode(alert: IAlert): string {
+    return alert && alert.alertId ? alert.alertId : '';
+  }
+
+
+  displayWithTitle(alert: IAlert): string {
+    return alert && alert.title ? alert.title : '';
+  }
+
 }
