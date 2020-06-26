@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AlertLogService } from 'src/app/services/alert-log.service';
 import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
-import { Observable, of } from 'rxjs';
+import { IAlert } from 'src/app/models/alert';
 
 @Component({
   selector: 'irisa-alert-log-filter-presenter',
   template: `
   <irisa-alert-log-filter-view
-    [alert-list]="alertList$"
+    [alert-list]="alertList"
     [alert-type-list]="alertTypeList"
     [date-periods]="datePeriods"
     (on-search-data)="searchData($event)"
@@ -16,7 +16,7 @@ import { Observable, of } from 'rxjs';
   `,
 })
 export class IrisaAlertLogFilterPresenter implements OnInit {
-  alertList$: Observable<any[]>;
+  alertList: IAlert[];
   alertTypeList: any[]
 
   @Output('on-search-data') onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
@@ -43,7 +43,7 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
 
   readAlerts() {
     this.alertLogService.readAlerts().then((res) => {
-      this.alertList$ = of(res)
+      this.alertList = res
     }).catch(err => {
       console.error(err)
     })
