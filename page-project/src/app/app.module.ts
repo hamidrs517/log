@@ -23,10 +23,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { SearchListPresenter } from './pages/alert-log-page/components/search-list/search-list-presenter';
-import { SearchListView } from './pages/alert-log-page/components/search-list/view/search-list-view';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AlertLogFilterDialogView } from './pages/alert-log-page/components/alert-log-filter-dialog/view/alert-log-filter-dialog-view';
+import { AlertLogFilterDialogPresenter } from './pages/alert-log-page/components/alert-log-filter-dialog/alert-log-filter-dialog-presenter';
 
 @NgModule({
   declarations: [
@@ -37,8 +38,8 @@ import { MatIconModule } from '@angular/material/icon';
     IrisaAlertLogPagePresenter,
     IrisaAlertLogfilterView,
     IrisaAlertLogFilterPresenter,
-    SearchListPresenter,
-    SearchListView
+    AlertLogFilterDialogView,
+    AlertLogFilterDialogPresenter
   ],
   imports: [
     BrowserModule,
@@ -60,7 +61,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDividerModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

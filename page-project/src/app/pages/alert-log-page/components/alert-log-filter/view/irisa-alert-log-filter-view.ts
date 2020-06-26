@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, switchMap, map } from 'rxjs/operators';
-import { IAlertLogItem } from 'src/app/models/alert-log-item';
+import { startWith, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { IAlert } from 'src/app/models/alert';
-import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'irisa-alert-log-filter-view',
@@ -32,15 +29,13 @@ export class IrisaAlertLogfilterView implements OnInit {
   selectable = true;
   removable = true;
 
-  // @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
-  // @ViewChild('auto') matAutocomplete: MatAutocomplete;
   @ViewChild('autoCode') matAutocompleteCode: MatAutocomplete;
   @ViewChild('autoTitle') matAutocompleteTitle: MatAutocomplete;
   @ViewChild('itemInput', { static: false }) itemInput: ElementRef<HTMLInputElement>;
   // @ViewChild('autoCode', { static: false }) matAutocompleteCode: MatAutocomplete;
   // @ViewChild('autoName', { static: false }) matAutocompleteName: MatAutocomplete;
 
-
+  panelOpenState = false;
   filterForm: FormGroup
 
   // get pageNumber() { return this.filterForm.get('pageNumber'); }
