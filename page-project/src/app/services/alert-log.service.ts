@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IAlertLogItem } from "../models/alert-log-item";
+import { IAlert } from "../models/alert";
 @Injectable({
   providedIn: 'root'
 })

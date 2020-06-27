@@ -1,0 +1,53 @@
+<mat-card id='tableResult' style="margin: 10px;">
+  <mat-card-header>
+    <mat-card-title>Alert Log List</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="alertLogList" class="table-container">
+
+
+      <ng-container matColumnDef="alertId">
+        <th mat-header-cell *matHeaderCellDef fxHide.lt-sm> Alert Id </th>
+        <td mat-cell *matCellDef="let element" fxHide.lt-sm> {{element.alertId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="logText">
+        <th mat-header-cell *matHeaderCellDef>Log Text</th>
+        <td mat-cell *matCellDef="let element"> {{element.logText}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="logDate">
+        <th mat-header-cell *matHeaderCellDef>Log Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.logDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="operation">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="primary" type="button" (click)="showDetails(element)">
+            <mat-icon>search</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- 
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row fxLayout="row wrap" fxLayoutAlign.xs="start start" *matRowDef="let row; columns: displayedColumns;">
+      </mat-row> -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+
+    </table>
+
+    <mat-paginator #paginator [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]" [length]="alertLogList?.length"
+      (page)="getLogList.emit($event)">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

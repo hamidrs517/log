@@ -28,6 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AlertLogFilterDialogView } from './pages/alert-log-page/components/alert-log-filter-dialog/view/alert-log-filter-dialog-view';
 import { AlertLogFilterDialogPresenter } from './pages/alert-log-page/components/alert-log-filter-dialog/alert-log-filter-dialog-presenter';
+import { AlertLogTable2Presenter } from './pages/alert-log-page/components/alert-log-table2/alert-log-table2-presenter';
+import { AlertLogTable2View } from './pages/alert-log-page/components/alert-log-table2/view/alert-log-table2-view';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AlertLogFilterDialogPresenter } from './pages/alert-log-page/components
     IrisaAlertLogfilterView,
     IrisaAlertLogFilterPresenter,
     AlertLogFilterDialogView,
-    AlertLogFilterDialogPresenter
+    AlertLogFilterDialogPresenter,
+    AlertLogTable2Presenter,
+    AlertLogTable2View
   ],
   imports: [
     BrowserModule,
@@ -65,6 +69,9 @@ import { AlertLogFilterDialogPresenter } from './pages/alert-log-page/components
     MatExpansionModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertLogFilterDialogPresenter
+  ]
 })
 export class AppModule { }
