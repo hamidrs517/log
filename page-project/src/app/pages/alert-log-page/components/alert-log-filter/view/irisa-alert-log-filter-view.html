@@ -1,4 +1,3 @@
-
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
   <mat-card class="filter-card" style="margin: 10px;">
     <mat-card-header>
@@ -56,66 +55,66 @@
       <!---------------------------------------------------------------------------------------------------------->
       <!-------------------------------------expansion-panel------------------------------------------------------>
       <div fxLayout="row wrap" fxLayoutAlign="center center">
-      <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title style="align-items: center;">
-            Advanced Search
-          </mat-panel-title>
-          <mat-panel-description dir="rtl">
+        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="align-items: center;">
+              Advanced Search
+            </mat-panel-title>
+            <mat-panel-description dir="rtl">
 
-            <button mat-mini-fab color="primary" type="button">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+              <button mat-mini-fab color="primary" type="button">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="17px">
-          <!------------------------------------------------------------------------------------------------------------->
-          <!-------------------------------------From Data------------------------------------------------------>
-          <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-            fxFlex.gt-md="0 1 calc(20% - 17px)" >
-            <mat-label>From Data</mat-label>
-            <input matInput [matDatepicker]="fromDateDp" [formControl]="fromDate">
-            <mat-datepicker-toggle matSuffix [for]="fromDateDp"></mat-datepicker-toggle>
-            <mat-datepicker touchUi #fromDateDp disabled="false"></mat-datepicker>
-          </mat-form-field>
-          <!------------------------------------------------------------------------------------------------------------->
-          <!-------------------------------------To Data------------------------------------------------------>
-          <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-            fxFlex.gt-md="0 1 calc(20% - 17px)" >
-            <mat-label>To Data</mat-label>
-            <input matInput [matDatepicker]="toDateDp" [formControl]="toDate">
-            <mat-datepicker-toggle matSuffix [for]="toDateDp"></mat-datepicker-toggle>
-            <mat-datepicker touchUi #toDateDp disabled="false"></mat-datepicker>
-          </mat-form-field>
-          <!------------------------------------------------------------------------------------------------------------->
+          <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="17px">
+            <!------------------------------------------------------------------------------------------------------------->
+            <!-------------------------------------From Date------------------------------------------------------>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)">
+              <mat-label>From Data</mat-label>
+              <input matInput [matDatepicker]="fromDateDp" [formControl]="fromDate">
+              <mat-datepicker-toggle matSuffix [for]="fromDateDp"></mat-datepicker-toggle>
+              <mat-datepicker touchUi #fromDateDp disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <!------------------------------------------------------------------------------------------------------------->
+            <!-------------------------------------To Data------------------------------------------------------>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)">
+              <mat-label>To Data</mat-label>
+              <input matInput [matDatepicker]="toDateDp" [formControl]="toDate">
+              <mat-datepicker-toggle matSuffix [for]="toDateDp"></mat-datepicker-toggle>
+              <mat-datepicker touchUi #toDateDp disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <!------------------------------------------------------------------------------------------------------------->
 
-          <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-            fxFlex.gt-md="0 1 calc(20% - 17px)" >
-            <input matInput placeholder="prm1" formControlName="prm1">
-          </mat-form-field>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)">
+              <input matInput placeholder="prm1" formControlName="prm1">
+            </mat-form-field>
 
-          <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-            fxFlex.gt-md="0 1 calc(20% - 17px)" >
-            <input matInput placeholder="prm2" formControlName="prm2">
-          </mat-form-field>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)">
+              <input matInput placeholder="prm2" formControlName="prm2">
+            </mat-form-field>
 
-          <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-            fxFlex.gt-md="0 1 calc(20% - 17px)" >
-            <input matInput placeholder="prm3" formControlName="prm3">
-          </mat-form-field>
-          <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-            fxFlex.gt-md="0 1 calc(20% - 17px)" >
-            <mat-select placeholder="Type" formControlName="alertType">
-              <mat-option *ngFor="let aType of alertTypeList" [value]="aType.value">
-                {{ aType.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)">
+              <input matInput placeholder="prm3" formControlName="prm3">
+            </mat-form-field>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)">
+              <mat-select placeholder="Type" formControlName="alertType">
+                <mat-option *ngFor="let aType of alertTypeList" [value]="aType.value">
+                  {{ aType.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        </div>
-      </mat-expansion-panel>
-    </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Search</button>

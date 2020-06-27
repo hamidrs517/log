@@ -1,16 +1,28 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, timeout } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { IAlert } from 'src/app/models/alert';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'irisa-alert-log-filter-view',
   templateUrl: './irisa-alert-log-filter-view.html',
-  styleUrls: ['./irisa-alert-log-filter-view.scss']
+  styleUrls: ['./irisa-alert-log-filter-view.scss'],
+  animations: [
+    trigger('myInsertRemoveTrigger', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1000ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('1000ms', style({ opacity: 0 }))
+      ])
+    ]),
+  ],
 })
 export class IrisaAlertLogfilterView implements OnInit {
 
@@ -26,6 +38,8 @@ export class IrisaAlertLogfilterView implements OnInit {
   filteredAlerts: IAlert[];
   selectedAlerts: IAlert[] = [];
   visible = true;
+  visibleAdvandedFields = false;
+  visibleAdvandedFieldsForm = false;
   selectable = true;
   removable = true;
 
@@ -72,6 +86,10 @@ export class IrisaAlertLogfilterView implements OnInit {
       fromDate: [null],
       toDate: [null]
     });
+  }
+
+  showAdvandedFields() {
+    this.visibleAdvandedFieldsForm = !this.visibleAdvandedFieldsForm
   }
 
   resetForm() {

@@ -18,7 +18,7 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
   // @Input('data-source') dataSource
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
-    'alertId', 'logText', 'logDate', 'title','operation'
+    'alertId', 'logText', 'logDate', 'title', 'operation'
   ];
 
   @Input('alert-log-list') alertLogList: IAlertLogItem[];
@@ -26,99 +26,12 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
   @Output('get-log-list') getLogList: EventEmitter<PageEvent> = new EventEmitter<PageEvent>()
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
-    private mediaMatcher: MediaMatcher,
     private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-    const layoutChanges = this.breakpointObserver.observe([
-      Breakpoints.Handset,
-      Breakpoints.HandsetLandscape,
-      Breakpoints.HandsetPortrait,
-      Breakpoints.Tablet,
-      Breakpoints.TabletLandscape,
-      Breakpoints.TabletPortrait,
-      Breakpoints.Large,
-      Breakpoints.XSmall,
-      Breakpoints.Web,
-      Breakpoints.WebLandscape,
-      Breakpoints.WebPortrait,
-      Breakpoints.Small,
-      Breakpoints.Medium,
-      "(min-width: 320px) and (max-width: 599.99px)",
-      "(max-width: 320.99px)",
-    ]);
+  ngOnInit(): void { }
 
-    // layoutChanges.subscribe((result: BreakpointState) => {
-    //   console.warn(result.breakpoints)
-
-    //   if (result.breakpoints["(min-width: 320px) and (max-width: 599.99px)"]) {
-    //     this.displayedColumns = [
-    //       'alertId', 'logDate', 'operation'
-    //     ];
-    //   } else if (result.breakpoints["(max-width: 320.99px)"]) {
-    //     this.displayedColumns = [
-    //       'alertId', 'operation'
-    //     ];
-    //   } else if (result.breakpoints["(max-width: 599.99px) and (orientation: portrait)"]) {
-
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'operation'
-    //     ];
-
-    //   } else if (result.breakpoints["(max-width: 959.99px) and (orientation: landscape)"]) {
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'operation'
-    //     ];
-
-    //   } else if (result.breakpoints["(min-width: 600px) and (max-width: 839.99px) and (orientation: portrait)"]) {
-
-    //   } else if (result.breakpoints["(min-width: 600px) and (max-width: 959.99px)"]) {
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'title'
-    //     ];
-
-    //   } else if (result.breakpoints["(min-width: 840px) and (orientation: portrait)"]) {
-
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'title'
-    //     ];
-
-    //   } else if (result.breakpoints["(min-width: 960px) and (max-width: 1279.99px)"]) {
-
-    //     this.displayedColumns = [
-    //     ];
-
-    //   } else if (result.breakpoints["(min-width: 960px) and (max-width: 1279.99px) and (orientation: landscape)"]) {
-
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'title'
-    //     ];
-
-    //   } else if (result.breakpoints["(min-width: 1280px) and (max-width: 1919.99px)"]) {
-
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'title'
-    //     ];
-
-    //   } else if (result.breakpoints["(min-width: 1280px) and (orientation: landscape)"]) {
-
-    //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'title'
-    //     ];
-
-    //   }
-
-    // });
-
-
-  }
-
-  ngAfterViewInit() {
-
-  }
-
+  ngAfterViewInit() { }
 
   showDetails(rowData: IAlertLogItem): void {
     const dialogRef = this.dialog.open(AlertLogFilterDialogPresenter, {
