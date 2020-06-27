@@ -18,7 +18,7 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
   // @Input('data-source') dataSource
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
-    'alertId', 'logText', 'logDate', 'title'
+    'alertId', 'logText', 'logDate', 'title','operation'
   ];
 
   @Input('alert-log-list') alertLogList: IAlertLogItem[];
@@ -88,7 +88,6 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
     //   } else if (result.breakpoints["(min-width: 960px) and (max-width: 1279.99px)"]) {
 
     //     this.displayedColumns = [
-    //       'alertId', 'logText', 'logDate', 'title'
     //     ];
 
     //   } else if (result.breakpoints["(min-width: 960px) and (max-width: 1279.99px) and (orientation: landscape)"]) {
