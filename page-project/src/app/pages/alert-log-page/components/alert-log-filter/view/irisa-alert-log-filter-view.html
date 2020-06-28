@@ -11,6 +11,7 @@
         <!-------------------------------------Select Alerts code------------------------------------------------------>
         <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 2 calc(50% - 17px)"
           fxFlex.gt-md="0 1 calc(40% - 17px)" appearance="outline">
+          <mat-label>Alerts code</mat-label>
           <mat-select formControlName="alerts" [(value)]="alertsData" multiple>
             <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
               {{alert.alertId}}
@@ -21,6 +22,7 @@
         <!-------------------------------------Select Alerts Name------------------------------------------------------>
         <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 2 calc(50% - 17px)"
           fxFlex.gt-md="0 1 calc(40% - 17px)" appearance="outline">
+          <mat-label>Alerts Name</mat-label>
           <mat-select formControlName="alerts" [(value)]="alertsData" multiple>
             <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
               {{alert.title}}
