@@ -5,24 +5,29 @@
 
     <mat-card-content fxLayout="row wrap" fxLayoutGap="2%">
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Alert Id</mat-label>
             <input matInput placeholder="Alert Id" [value]="alertLogItem.alertId">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
             <input matInput placeholder="Title" [value]="alertLogItem.title">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
             <input matInput placeholder="Type" [value]="alertLogItem.type">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Log Date</mat-label>
             <input matInput placeholder="Log Date" [value]="alertLogItem.logDate">
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="prm1" [value]="alertLogItem.logText">
+        <mat-form-field appearance="outline">
+            <mat-label>Log Text</mat-label>
+            <input matInput placeholder="Log Text" [value]="alertLogItem.logText">
         </mat-form-field>
 
 
