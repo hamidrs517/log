@@ -1,28 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map, timeout } from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { IAlert } from 'src/app/models/alert';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'irisa-alert-log-filter-view',
   templateUrl: './irisa-alert-log-filter-view.html',
   styleUrls: ['./irisa-alert-log-filter-view.scss'],
-  animations: [
-    trigger('myInsertRemoveTrigger', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('1000ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('1000ms', style({ opacity: 0 }))
-      ])
-    ]),
-  ],
 })
 export class IrisaAlertLogfilterView implements OnInit {
 
@@ -33,21 +16,10 @@ export class IrisaAlertLogfilterView implements OnInit {
   @Input('alert-type-list') alertTypeList
   @Input('date-periods') datePeriods
 
-  filteredAlertList$: Observable<IAlert[]>;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredAlerts: IAlert[];
   selectedAlerts: IAlert[] = [];
-  visible = true;
-  visibleAdvandedFields = false;
-  visibleAdvandedFieldsForm = false;
-  selectable = true;
-  removable = true;
+  alertsData: IAlert[] = [];
 
-  @ViewChild('autoCode') matAutocompleteCode: MatAutocomplete;
-  @ViewChild('autoTitle') matAutocompleteTitle: MatAutocomplete;
   @ViewChild('itemInput', { static: false }) itemInput: ElementRef<HTMLInputElement>;
-  // @ViewChild('autoCode', { static: false }) matAutocompleteCode: MatAutocomplete;
-  // @ViewChild('autoName', { static: false }) matAutocompleteName: MatAutocomplete;
 
   panelOpenState = false;
   filterForm: FormGroup
@@ -88,10 +60,6 @@ export class IrisaAlertLogfilterView implements OnInit {
     });
   }
 
-  showAdvandedFields() {
-    this.visibleAdvandedFieldsForm = !this.visibleAdvandedFieldsForm
-  }
-
   resetForm() {
     this.selectedAlerts = []
     this.alerts.setValue([])
@@ -103,78 +71,8 @@ export class IrisaAlertLogfilterView implements OnInit {
     this.toDate.setValue(null)
   }
 
-
   ngOnInit() {
     this.initForm()
-    this.filteredAlertList$ = this.alerts.valueChanges
-      .pipe(
-        map(value => {
-          console.warn("typeof value", typeof value)
-          return (typeof value === 'string' || typeof value === 'number') ? value : value.alertId
-        }),
-        map((value) => {
-          if (typeof value === 'string') {
-            return value ? this._filterByName(value) : (this.alertList ? this.alertList.slice() : [])
-          } else if (typeof value === 'number') {
-            return value ? this._filterByCode(value) : (this.alertList ? this.alertList.slice() : [])
-          }
-        })
-      );
-  }
-
-  private _filterByCode(value): IAlert[] {
-    const filterValue = value;
-    return this.alertList.filter(alert => alert.alertId.indexOf(filterValue) === 0);
-  }
-
-  private _filterByName(value): IAlert[] {
-    const filterValue = value.toLowerCase();
-    return this.alertList.filter(alert => alert.title.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    console.warn("add", event)
-    // Add our item
-    if ((value || '').trim()) {
-      // this.selectedAlerts.push(
-      //   value,
-      // )
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    this.alerts.setValue(null);
-  }
-
-  remove(alert: IAlert): void {
-    const index = this.selectedAlerts.findIndex(alt => alt.alertId === alert.alertId);
-    if (index >= 0) {
-      this.selectedAlerts.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    console.warn("event", event)
-    const selectedAlert = this.alertList.find(altList => altList.alertId === event.option.value)
-    this.selectedAlerts.push(selectedAlert);
-    this.itemInput.nativeElement.value = '';
-    const selectedAlertIds = this.selectedAlerts.map(alt => alt.alertId)
-    this.alerts.setValue(selectedAlertIds);
-  }
-
-
-  displayWithCode(alert: IAlert): string {
-    return alert && alert.alertId ? alert.alertId : '';
-  }
-
-
-  displayWithTitle(alert: IAlert): string {
-    return alert && alert.title ? alert.title : '';
   }
 
 }
