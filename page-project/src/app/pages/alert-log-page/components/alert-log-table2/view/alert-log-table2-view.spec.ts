@@ -4,15 +4,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
-import { IrisaAlertLogTableView } from './irisa-alert-log-table-view';
+import { AlertLogTable2View } from './alert-log-table2-view';
 
-describe('IrisaAlertLogTableView', () => {
-  let component: IrisaAlertLogTableView;
-  let fixture: ComponentFixture<IrisaAlertLogTableView>;
+describe('AlertLogTable2View', () => {
+  let component: AlertLogTable2View;
+  let fixture: ComponentFixture<AlertLogTable2View>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [IrisaAlertLogTableView],
+      declarations: [AlertLogTable2View],
       imports: [
         NoopAnimationsModule,
         MatPaginatorModule,
@@ -23,7 +23,7 @@ describe('IrisaAlertLogTableView', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IrisaAlertLogTableView);
+    fixture = TestBed.createComponent(AlertLogTable2View);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

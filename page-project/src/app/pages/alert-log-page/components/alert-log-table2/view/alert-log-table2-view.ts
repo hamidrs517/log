@@ -17,11 +17,16 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
   // @ViewChild(MatTable) table: MatTable<IAlertLogItem>;
   // @Input('data-source') dataSource
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = [
-    'alertId', 'logText', 'logDate', 'title', 'operation'
-  ];
+  displayedColumns = [];
 
   @Input('alert-log-list') alertLogList: IAlertLogItem[];
+  columns = [
+    { columnDef: 'alertId', header: 'Alert Id', cell: (element: any) => `${element.alertId}` },
+    { columnDef: 'logText', header: 'Log Text', cell: (element: any) => `${element.logText}` },
+    { columnDef: 'logDate', header: 'Log Date', cell: (element: any) => `${element.logDate}` },
+    { columnDef: 'title', header: 'Title', cell: (element: any) => `${element.title}` },
+    { columnDef: 'operation', header: 'operation', cell: (element: any) => `` },
+  ];
 
   @Output('get-log-list') getLogList: EventEmitter<PageEvent> = new EventEmitter<PageEvent>()
 
@@ -29,7 +34,9 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.displayedColumns = this.columns.map(c => c.columnDef);
+  }
 
   ngAfterViewInit() { }
 
