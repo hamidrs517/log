@@ -67,23 +67,36 @@
 
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
               fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              <mat-label>Parameter 1</mat-label>
               <input matInput placeholder="prm1" formControlName="prm1">
             </mat-form-field>
 
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
               fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              <mat-label>Parameter 2</mat-label>
               <input matInput placeholder="prm2" formControlName="prm2">
             </mat-form-field>
 
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
               fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              <mat-label>Parameter 3</mat-label>
               <input matInput placeholder="prm3" formControlName="prm3">
             </mat-form-field>
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
               fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              <mat-label>Type</mat-label>
               <mat-select placeholder="Type" formControlName="alertType">
                 <mat-option *ngFor="let aType of alertTypeList" [value]="aType.value">
                   {{ aType.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
+              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              <mat-label>Date Period</mat-label>
+              <mat-select placeholder="Date Period" formControlName="datePeriod">
+                <mat-option *ngFor="let period of datePeriods" [value]="period.value">
+                  {{ period.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

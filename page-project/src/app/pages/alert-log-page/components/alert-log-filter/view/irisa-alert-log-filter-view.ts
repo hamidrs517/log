@@ -28,6 +28,7 @@ export class IrisaAlertLogfilterView implements OnInit {
   // get pageSize() { return this.filterForm.get('pageSize'); }
   get alerts() { return this.filterForm.get('alerts'); }
   get alertType() { return this.filterForm.get('alertType'); }
+  get datePeriod() { return this.filterForm.get('datePeriod'); }
   get prm1() { return this.filterForm.get('prm1'); }
   get prm2() { return this.filterForm.get('prm2'); }
   get prm3() { return this.filterForm.get('prm3'); }
@@ -56,7 +57,8 @@ export class IrisaAlertLogfilterView implements OnInit {
       prm3: [null],
       bodyPhrase: [null],
       fromDate: [null],
-      toDate: [null]
+      toDate: [null],
+      datePeriod: [null]
     });
   }
 
