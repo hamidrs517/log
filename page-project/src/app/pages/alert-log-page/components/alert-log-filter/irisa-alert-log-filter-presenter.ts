@@ -19,14 +19,14 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
   alertList: IAlert[];
   alertTypeList: any[]
 
-  @Output('on-search-data') onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
+  onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
   // alertTypeList
   datePeriods: any
 
   constructor(private alertLogService: AlertLogService) { }
 
   ngOnInit(): void {
-    this.onSearchData.emit({
+    this.alertLogService.searchData.next({
       pageNumber: 0,
       pageSize: 10
     } as IAlertLogFilter)
@@ -38,7 +38,7 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
 
   searchData(event: IAlertLogFilter) {
     console.info("submit filter form:", event)
-    this.onSearchData.emit(event)
+    this.alertLogService.searchData.next(event)
   }
 
   readAlerts() {
@@ -52,7 +52,6 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
   readAlertTypeList() {
     this.alertLogService.readAlertTypeList().then((res) => {
       this.alertTypeList = res
-      // console.error(err)
     })
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AlertLogService } from 'src/app/services/alert-log.service';
 import { IAlertLogItem } from 'src/app/models/alert-log-item';
 import { PageEvent } from '@angular/material/paginator';
+import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 
 @Component({
   selector: 'alert-log-table2-presenter',
@@ -15,7 +16,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class AlertLogTable2Presenter implements OnInit {
   pageNumber: number
-  @Input('search-data') searchData
+  searchData: IAlertLogFilter
 
   private _alertLogList: IAlertLogItem[];
   set alertLogList(list: IAlertLogItem[]) {
@@ -30,10 +31,13 @@ export class AlertLogTable2Presenter implements OnInit {
 
   ngOnInit(): void {
     this.getAlertLogList()
+    this.alertLogService.searchData.subscribe(filters => {
+      console.warn("filters", filters)
+      this.searchData = filters
+    })
   }
 
   getAlertLogList() {
-
     this.alertLogService.getAlertLogList(this.searchData).then((res: IAlertLogItem[]) => {
       this.alertLogList = res
     }).catch(err => {

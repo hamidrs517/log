@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IAlert } from 'src/app/models/alert';
+import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 
 @Component({
   selector: 'irisa-alert-log-filter-view',
@@ -12,7 +13,7 @@ export class IrisaAlertLogfilterView implements OnInit {
   // @Input('alert-filter') alertFilter: IAlertLogFilter
   @Input('alert-list') alertList: IAlert[]
 
-  @Output('on-search-data') onSearchData: EventEmitter<IAlert> = new EventEmitter<IAlert>()
+  @Output('on-search-data') onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
   @Input('alert-type-list') alertTypeList
   @Input('date-periods') datePeriods
 

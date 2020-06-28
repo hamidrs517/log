@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IAlertLogItem } from "../models/alert-log-item";
-import { IAlert } from "../models/alert";
+import { BehaviorSubject } from 'rxjs';
+import { IAlertLogFilter } from '../models/alert-log-filter';
 @Injectable({
   providedIn: 'root'
 })
 export class AlertLogService {
+  searchData: BehaviorSubject<IAlertLogFilter> = new BehaviorSubject<IAlertLogFilter>(null)
 
   EXAMPLE_DATA: IAlertLogItem[] = [
     {
