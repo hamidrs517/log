@@ -50,7 +50,7 @@
             <!------------------------------------------------------------------------------------------------------------->
             <!-------------------------------------From Date------------------------------------------------------>
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>From Data</mat-label>
               <input matInput [matDatepicker]="fromDateDp" [formControl]="fromDate">
               <mat-datepicker-toggle matSuffix [for]="fromDateDp"></mat-datepicker-toggle>
@@ -59,7 +59,7 @@
             <!------------------------------------------------------------------------------------------------------------->
             <!-------------------------------------To Data------------------------------------------------------>
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>To Data</mat-label>
               <input matInput [matDatepicker]="toDateDp" [formControl]="toDate">
               <mat-datepicker-toggle matSuffix [for]="toDateDp"></mat-datepicker-toggle>
@@ -68,24 +68,24 @@
             <!------------------------------------------------------------------------------------------------------------->
 
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>Parameter 1</mat-label>
               <input matInput placeholder="prm1" formControlName="prm1">
             </mat-form-field>
 
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>Parameter 2</mat-label>
               <input matInput placeholder="prm2" formControlName="prm2">
             </mat-form-field>
 
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>Parameter 3</mat-label>
               <input matInput placeholder="prm3" formControlName="prm3">
             </mat-form-field>
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>Type</mat-label>
               <mat-select placeholder="Type" formControlName="alertType">
                 <mat-option *ngFor="let aType of alertTypeList" [value]="aType.value">
@@ -94,7 +94,7 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 1 calc(33.33% - 17px)"
-              fxFlex.gt-md="0 1 calc(20% - 17px)" appearance="outline">
+              fxFlex.gt-md="0 1 calc(25% - 17px)" appearance="outline">
               <mat-label>Date Period</mat-label>
               <mat-select placeholder="Date Period" formControlName="datePeriod">
                 <mat-option *ngFor="let period of datePeriods" [value]="period.value">

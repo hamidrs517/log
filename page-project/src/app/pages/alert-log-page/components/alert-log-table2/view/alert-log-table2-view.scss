@@ -45,6 +45,8 @@ mat-row:nth-child(2n+1){
     }
 }
 
-.dialog-back-drop{
+
+::ng-deep .dialog-back-drop{
   overflow-y: auto;
+  background-color: rgba(0,0,0,0.7);
 }

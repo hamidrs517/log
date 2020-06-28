@@ -3,31 +3,31 @@
         <mat-card-title>Detail</mat-card-title>
     </mat-card-header>
 
-    <mat-card-content fxLayout="row wrap" fxLayoutGap="2%">
+    <mat-card-content fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="2%">
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" fxFlex="0 1 48%">
             <mat-label>Alert Id</mat-label>
-            <input matInput placeholder="Alert Id" [value]="alertLogItem.alertId">
+            <input readonly matInput placeholder="Alert Id" [value]="alertLogItem.alertId">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" fxFlex="0 1 48%">
             <mat-label>Title</mat-label>
-            <input matInput placeholder="Title" [value]="alertLogItem.title">
+            <input readonly matInput placeholder="Title" [value]="alertLogItem.title">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <!-- <mat-form-field appearance="outline" fxFlex="0 1 48%">
             <mat-label>Type</mat-label>
-            <input matInput placeholder="Type" [value]="alertLogItem.type">
-        </mat-form-field>
+            <input readonly matInput placeholder="Type" [value]="alertLogItem.type">
+        </mat-form-field> -->
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" fxFlex="0 1 48%">
             <mat-label>Log Date</mat-label>
-            <input matInput placeholder="Log Date" [value]="alertLogItem.logDate">
+            <input readonly matInput placeholder="Log Date" [value]="alertLogItem.logDate">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" fxFlex="0 1 48%">
             <mat-label>Log Text</mat-label>
-            <input matInput placeholder="Log Text" [value]="alertLogItem.logText">
+            <input readonly matInput placeholder="Log Text" [value]="alertLogItem.logText">
         </mat-form-field>
 
 
