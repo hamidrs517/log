@@ -10,7 +10,7 @@ import { IAlert } from 'src/app/models/alert';
     [alert-list]="alertList"
     [alert-type-list]="alertTypeList"
     [date-periods]="datePeriods"
-    (on-search-data)="searchData($event)"
+    (on-search-data)="onSearchDataFn($event)"
   >
   </irisa-alert-log-filter-view>
   `,
@@ -20,25 +20,22 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
   alertTypeList: any[]
 
   onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
-  // alertTypeList
   datePeriods: any
-
+  filterData: IAlertLogFilter
   constructor(private alertLogService: AlertLogService) { }
 
   ngOnInit(): void {
-    this.alertLogService.searchData.next({
-      pageNumber: 0,
-      pageSize: 10
-    } as IAlertLogFilter)
-
     this.readAlerts()
     this.readAlertTypeList()
     this.readDatePeriods()
+    this.filterData = this.alertLogService.latestFilterData
   }
 
-  searchData(event: IAlertLogFilter) {
-    console.info("submit filter form:", event)
-    this.alertLogService.searchData.next(event)
+  onSearchDataFn(event: IAlertLogFilter) {
+    this.filterData = this.alertLogService.latestFilterData
+    const searchData = this.mergeFilterData(this.filterData, event)
+    // .next on _searchData: BehaviorSubject
+    this.alertLogService.setFilterData(searchData)
   }
 
   readAlerts() {
@@ -63,5 +60,8 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
     })
   }
 
-
+  mergeFilterData(latestFilter, filterInForm) {
+    const filters = { ...filterInForm, ...latestFilter }
+    return filters
+  }
 }

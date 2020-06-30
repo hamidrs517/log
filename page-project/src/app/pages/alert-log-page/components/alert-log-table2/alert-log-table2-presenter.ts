@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertLogService } from 'src/app/services/alert-log.service';
 import { IAlertLogItem } from 'src/app/models/alert-log-item';
 import { PageEvent } from '@angular/material/paginator';
@@ -16,55 +16,34 @@ import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 })
 export class AlertLogTable2Presenter implements OnInit {
   pageNumber: number
-  searchData: IAlertLogFilter
-
-  private _alertLogList: IAlertLogItem[];
-  set alertLogList(list: IAlertLogItem[]) {
-    this._alertLogList = list
-  }
-
-  get alertLogList(): IAlertLogItem[] {
-    return this._alertLogList
-  }
+  filterData: IAlertLogFilter
+  alertLogList: IAlertLogItem[]
 
   constructor(private alertLogService: AlertLogService) { }
 
   ngOnInit(): void {
-    this.getAlertLogList()
-    this.alertLogService.searchData.subscribe(filters => {
-      console.warn("filters", filters)
-      this.searchData = filters
-    })
-  }
+    // this.filterData = this.alertLogService.latestFilterData
+    this.alertLogList = this.alertLogService.alertLogList
 
-  getAlertLogList() {
-    this.alertLogService.getAlertLogList(this.searchData).then((res: IAlertLogItem[]) => {
-      this.alertLogList = res
-    }).catch(err => {
-      console.error(err)
-    })
   }
 
   getLogListWithPage(event: PageEvent) {
-    console.warn(event)
-    const {
-      length,
-      pageIndex: pageNumber,
-      pageSize,
-      previousPageIndex
-    } = event
+    this.filterData = this.alertLogService.latestFilterData
+    const searchData = this.mergeFilterData(this.filterData, event)
 
+    // .next on _searchData: BehaviorSubject
+    this.alertLogService.setFilterData(searchData)
+    this.alertLogList = this.alertLogService.alertLogList
+    // this.getAlertLogList(searchData)
+
+  }
+
+  mergeFilterData(latestFilter, filterInPaginate: PageEvent) {
     const searchData = {
-      length,
-      pageNumber,
-      pageSize,
-      ...this.searchData
+      ...latestFilter,
+      pageNumber: filterInPaginate.pageIndex,
+      pageSize: filterInPaginate.pageSize
     }
-
-    this.alertLogService.getAlertLogList(searchData).then((res: IAlertLogItem[]) => {
-      this.alertLogList = res
-    }).catch(err => {
-      console.error(err)
-    })
+    return searchData
   }
 }
