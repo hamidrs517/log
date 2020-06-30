@@ -12,10 +12,7 @@ import { AlertLogFilterDialogPresenter } from '../../alert-log-filter-dialog/ale
   styleUrls: ['./alert-log-table2-view.scss']
 })
 export class AlertLogTable2View implements AfterViewInit, OnInit {
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild(MatTable) table: MatTable<IAlertLogItem>;
-  // @Input('data-source') dataSource
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [];
 
@@ -36,6 +33,10 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.displayedColumns = this.columns.map(c => c.columnDef);
+    this.getLogList.emit({
+      pageIndex: 0,
+      pageSize: 10
+    } as PageEvent)
   }
 
   ngAfterViewInit() { }
