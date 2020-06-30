@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { IAlertLogItem } from "../models/alert-log-item";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertLogFilter } from '../models/alert-log-filter';
 @Injectable({
   providedIn: 'root'
 })
 export class AlertLogService {
-  searchData: BehaviorSubject<IAlertLogFilter> = new BehaviorSubject<IAlertLogFilter>(null)
 
   EXAMPLE_DATA: IAlertLogItem[] = [
     {
@@ -285,8 +284,27 @@ export class AlertLogService {
     { name: "Last Day", value: 3 }
   ];
 
+  latestFilterData: IAlertLogFilter
+  private _searchData: BehaviorSubject<IAlertLogFilter> = new BehaviorSubject<IAlertLogFilter>(null)
+  searchData$: Observable<IAlertLogFilter> = this._searchData.asObservable()
+  alertLogList: IAlertLogItem[];
 
-  constructor() { }
+  public setFilterData(alertLogFilter: IAlertLogFilter) {
+    this._searchData.next(alertLogFilter);
+  }
+
+  constructor() {
+    this.searchData$.subscribe(res => {
+      let emitedfilterData = res as IAlertLogFilter
+      this.latestFilterData = { ...this.latestFilterData, ...emitedfilterData }
+
+      this.getAlertLogList(this.latestFilterData).then((res: IAlertLogItem[]) => {
+        this.alertLogList = res
+      }).catch(err => {
+        console.error(err)
+      })
+    })
+  }
 
   async readAlerts() {
     return await this.ALERT_LIST
@@ -302,6 +320,7 @@ export class AlertLogService {
 
   async getAlertLogList(data) {
     console.log("fiter data in service:", data)
-    return await this.EXAMPLE_DATA
+    this.alertLogList = this.EXAMPLE_DATA
+    return await this.alertLogList
   }
 }
