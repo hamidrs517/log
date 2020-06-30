@@ -10,7 +10,6 @@ import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 })
 export class IrisaAlertLogfilterView implements OnInit {
 
-  // @Input('alert-filter') alertFilter: IAlertLogFilter
   @Input('alert-list') alertList: IAlert[]
 
   @Output('on-search-data') onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
@@ -41,7 +40,6 @@ export class IrisaAlertLogfilterView implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   onSubmit() {
-    console.error(this.filterForm)
     this.onSearchData.emit(
       this.filterForm.getRawValue()
     );
