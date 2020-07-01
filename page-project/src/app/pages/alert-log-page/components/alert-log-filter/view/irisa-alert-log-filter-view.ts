@@ -44,18 +44,13 @@ export class IrisaAlertLogfilterView implements OnInit {
   get toDate() { return this.filterForm.get('toDate'); }
 
   constructor(private fb: FormBuilder) {
-    // this.alertIdCtrl.valueChanges.subscribe(alert => {
-    //   console.log(alert);
-    //   this.filteredAlerts = alert ? of(this._filter(alert)) : of(this.alertList.filter(this.isNotSelected))
-    // })
-
     this.filteredAlerts = this.alertIdCtrl.valueChanges.pipe(
-      startWith(""),
+      startWith(null),
       map((alert : string | null) => {
         if(typeof alert==="number"){
           return alert ? this._filterAlertId(alert) : this.alertList
         }
-        else{ if(typeof alert === "string")
+        else {
           return alert ? this._filterAlertTitle(alert) : this.alertList
         }
       })
@@ -176,16 +171,4 @@ export class IrisaAlertLogfilterView implements OnInit {
     return this.alertList.filter(x => x.title.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  // isSelected(element: IAlert, index, array) {
-  //   return element.selected
-  // }
-
-  // isNotSelected(element: IAlert, index, array) {
-  //   return (!element.selected)
-  // }
-
-  refreshFilteredAlerts() {
-    console.log("refresh");
-    this.filteredAlerts = of(this.alertList);
-  }
 }
