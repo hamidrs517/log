@@ -6,11 +6,9 @@
     </mat-card-header>
 
     <mat-card-content>
-
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="17px">
         <!------------------------------------------------------------------------------------------------------------->
         <!-------------------------------------Select Alerts code------------------------------------------------------>
-
         <mat-form-field style="width: 100%;" fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.gt-sm="0 2 calc(50% - 17px)">
           <mat-chip-list #chipList aria-label="Fruit selection">
             <mat-chip
@@ -59,9 +57,9 @@
               [matAutocomplete]="auto2"
               [matChipInputFor]="chipList2"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event,'alerttTitle')">
+              (matChipInputTokenEnd)="add($event,'alertTitle')">
           </mat-chip-list>
-          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event,'alerttTitle')">
+          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event,'alertTitle')">
             <mat-option *ngFor="let alert of (filteredAlerts | async)" [value]="alert.alertId">
               {{alert.title}}
             </mat-option>

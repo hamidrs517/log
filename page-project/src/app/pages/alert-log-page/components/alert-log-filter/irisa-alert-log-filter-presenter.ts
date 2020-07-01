@@ -38,6 +38,9 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
   }
 
   onSearchDataFn(event: IAlertLogFilter) {
+    console.log("aaaaaaaaaaaaaaaaaa");
+
+    console.log(event)
     this.filterData = this.alertLogService.latestFilterData
     const searchData = this.mergeFilterData(this.filterData, event)
     // .next on _searchData: BehaviorSubject

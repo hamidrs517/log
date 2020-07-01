@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { IAlert } from 'src/app/models/alert';
 import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 import { Observable, of } from 'rxjs';
@@ -8,6 +8,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, startWith } from 'rxjs/operators';
 import { async } from '@angular/core/testing';
+import { strict } from 'assert';
 
 @Component({
   selector: 'irisa-alert-log-filter-view',
@@ -33,7 +34,7 @@ export class IrisaAlertLogfilterView implements OnInit {
 
   // get pageNumber() { return this.filterForm.get('pageNumber'); }
   // get pageSize() { return this.filterForm.get('pageSize'); }
-  get alerts() { return this.filterForm.get('alerts'); }
+  get alerts() { return this.filterForm.get('alerts') as FormArray; }
   get alertType() { return this.filterForm.get('alertType'); }
   get datePeriod() { return this.filterForm.get('datePeriod'); }
   get prm1() { return this.filterForm.get('prm1'); }
@@ -77,6 +78,8 @@ export class IrisaAlertLogfilterView implements OnInit {
 
   onSubmit() {
     console.error(this.filterForm)
+    const alerts = this.selectedAlerts.map(alert => alert.alertId)
+    this.alerts.setValue(alerts)
     this.onSearchData.emit(
       this.filterForm.getRawValue()
     );
@@ -93,8 +96,6 @@ export class IrisaAlertLogfilterView implements OnInit {
     this.prm3.setValue(null)
     this.fromDate.setValue(null)
     this.toDate.setValue(null)
-
-
   }
 
   visible = true;
@@ -117,7 +118,7 @@ export class IrisaAlertLogfilterView implements OnInit {
       if(caller=='alertid'){
         index = this.alertList.findIndex(x => x.alertId == value.trim());
       }
-      else if(caller==='alerttTitle'){
+      else if(caller==='alertTitle'){
         index = this.alertList.findIndex(x => x.title == value.trim());
       }
       if (index >= 0) {
@@ -149,7 +150,7 @@ export class IrisaAlertLogfilterView implements OnInit {
       if(caller=='alertid'){
         index = this.alertList.findIndex(x => x.alertId === event.option.viewValue);
       }
-      else if(caller==='alerttTitle'){
+      else if(caller==='alertTitle'){
         index = this.alertList.findIndex(x => x.title === event.option.viewValue);
       }
     if (index >= 0) {
@@ -170,5 +171,4 @@ export class IrisaAlertLogfilterView implements OnInit {
     const filterValue = value.toLowerCase();
     return this.alertList.filter(x => x.title.toLowerCase().indexOf(filterValue) === 0);
   }
-
 }
