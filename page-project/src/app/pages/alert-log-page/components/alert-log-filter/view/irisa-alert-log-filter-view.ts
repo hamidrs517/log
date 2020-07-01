@@ -50,12 +50,12 @@ export class IrisaAlertLogfilterView implements OnInit {
     // })
 
     this.filteredAlerts = this.alertIdCtrl.valueChanges.pipe(
-      startWith(null),
+      startWith(""),
       map((alert : string | null) => {
         if(typeof alert==="number"){
           return alert ? this._filterAlertId(alert) : this.alertList
         }
-        else{
+        else{ if(typeof alert === "string")
           return alert ? this._filterAlertTitle(alert) : this.alertList
         }
       })
