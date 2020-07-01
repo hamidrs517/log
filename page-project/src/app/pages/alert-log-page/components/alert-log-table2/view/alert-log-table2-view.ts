@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { IAlertLogItem } from 'src/app/models/alert-log-item';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,12 +24,12 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
     { columnDef: 'title', header: 'Title', cell: (element: any) => `${element.title}` },
     { columnDef: 'operation', header: 'operation', cell: (element: any) => `` },
   ];
-
   @Output('get-log-list') getLogList: EventEmitter<PageEvent> = new EventEmitter<PageEvent>()
 
   constructor(
     private dialog: MatDialog
   ) { }
+
 
   ngOnInit(): void {
     this.displayedColumns = this.columns.map(c => c.columnDef);
@@ -51,8 +51,9 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed',result);
     });
+
   }
 
 }

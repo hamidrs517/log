@@ -9,8 +9,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { IrisaAlertLogPageView } from './pages/alert-log-page/view/irisa-alert-log-page-view';
 import { IrisaAlertLogPagePresenter } from './pages/alert-log-page/irisa-alert-log-page-presenter';
-import { IrisaAlertLogTablePresenter } from './pages/alert-log-page/components/alert-log-table/irisa-alert-log-table-presenter';
-import { IrisaAlertLogTableView } from './pages/alert-log-page/components/alert-log-table/view/irisa-alert-log-table-view';
 import { IrisaAlertLogFilterPresenter } from './pages/alert-log-page/components/alert-log-filter/irisa-alert-log-filter-presenter';
 import { IrisaAlertLogfilterView } from './pages/alert-log-page/components/alert-log-filter/view/irisa-alert-log-filter-view';
 import { MatInputModule } from '@angular/material/input';
@@ -34,9 +32,7 @@ import { AlertLogTable2View } from './pages/alert-log-page/components/alert-log-
 @NgModule({
   declarations: [
     AppComponent,
-    IrisaAlertLogTablePresenter,
-    IrisaAlertLogTableView,
-    IrisaAlertLogPageView,
+      IrisaAlertLogPageView,
     IrisaAlertLogPagePresenter,
     IrisaAlertLogfilterView,
     IrisaAlertLogFilterPresenter,

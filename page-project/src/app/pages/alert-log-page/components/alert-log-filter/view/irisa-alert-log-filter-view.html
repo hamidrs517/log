@@ -1,3 +1,4 @@
+
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
   <mat-card class="filter-card" style="margin: 10px;">
     <mat-card-header>
@@ -9,25 +10,62 @@
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="17px">
         <!------------------------------------------------------------------------------------------------------------->
         <!-------------------------------------Select Alerts code------------------------------------------------------>
-        <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 2 calc(50% - 17px)"
-          fxFlex.gt-md="0 1 calc(40% - 17px)" appearance="outline">
-          <mat-label>Alerts code</mat-label>
-          <mat-select formControlName="alerts" [(value)]="alertsData" multiple>
-            <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
+
+        <mat-form-field style="width: 100%;" fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 2 calc(50% - 17px)">
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip
+              *ngFor="let alert of selectedAlerts"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(alert)">
+              {{alert.alertId}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              type="number"
+              placeholder="New alert..."
+              #alertInput
+              [formControl]="alertIdCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event,'alertid')">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event,'alertid')">
+            <mat-option *ngFor="let alert of (filteredAlerts | async)" [value]="alert.alertId">
               {{alert.alertId}}
             </mat-option>
-          </mat-select>
+          </mat-autocomplete>
         </mat-form-field>
+
         <!------------------------------------------------------------------------------------------------------------->
         <!-------------------------------------Select Alerts Name------------------------------------------------------>
-        <mat-form-field fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 2 calc(50% - 17px)"
-          fxFlex.gt-md="0 1 calc(40% - 17px)" appearance="outline">
-          <mat-label>Alerts Name</mat-label>
-          <mat-select formControlName="alerts" [(value)]="alertsData" multiple>
-            <mat-option *ngFor="let alert of alertList" [value]="alert.alertId">
+
+        <mat-form-field style="width: 100%;" fxFlex.sm="0 1 calc(50% - 17px)" fxFlex.md="0 2 calc(50% - 17px)">
+          <mat-chip-list #chipList2 aria-label="Fruit selection">
+            <mat-chip
+              *ngFor="let alert of selectedAlerts"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(alert)">
+              {{alert.title}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              type="text"
+              placeholder="Alerts Name"
+              #alertInput2
+              [formControl]="alertIdCtrl"
+              [matAutocomplete]="auto2"
+              [matChipInputFor]="chipList2"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event,'alerttTitle')">
+          </mat-chip-list>
+          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event,'alerttTitle')">
+            <mat-option *ngFor="let alert of (filteredAlerts | async)" [value]="alert.alertId">
               {{alert.title}}
             </mat-option>
-          </mat-select>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <!---------------------------------------------------------------------------------------------------------->

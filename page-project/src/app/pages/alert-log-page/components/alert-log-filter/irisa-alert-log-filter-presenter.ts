@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { AlertLogService } from 'src/app/services/alert-log.service';
 import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 import { IAlert } from 'src/app/models/alert';
@@ -19,13 +19,19 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
   alertList: IAlert[];
   alertTypeList: any[]
 
-  onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
+  //onSearchData: EventEmitter<IAlertLogFilter> = new EventEmitter<IAlertLogFilter>()
+  // alertTypeList
   datePeriods: any
   filterData: IAlertLogFilter
-  constructor(private alertLogService: AlertLogService) { }
-
-  ngOnInit(): void {
+  constructor(private alertLogService: AlertLogService) {
     this.readAlerts()
+  }
+
+
+
+
+  ngOnInit() {
+
     this.readAlertTypeList()
     this.readDatePeriods()
     this.filterData = this.alertLogService.latestFilterData
@@ -38,8 +44,8 @@ export class IrisaAlertLogFilterPresenter implements OnInit {
     this.alertLogService.setFilterData(searchData)
   }
 
-  readAlerts() {
-    this.alertLogService.readAlerts().then((res) => {
+  async readAlerts() {
+    await this.alertLogService.readAlerts().then((res) => {
       this.alertList = res
     }).catch(err => {
       console.error(err)

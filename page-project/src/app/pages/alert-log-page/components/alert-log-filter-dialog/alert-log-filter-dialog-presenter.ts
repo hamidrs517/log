@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
     selector: 'alert-log-filter-dialog-presenter',
     template: `
-    <alert-log-filter-dialog-view 
+    <alert-log-filter-dialog-view
     [alert-log-item]="alertLogItem"
     (close-event)="close()"
     >
@@ -23,7 +23,7 @@ export class AlertLogFilterDialogPresenter implements OnInit {
 
 
     onNoClick(): void {
-        this.dialogRef.close();
+        this.dialogRef.close(1);
     }
 
     close() {
