@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertLogService } from 'src/app/services/alert-log.service';
-import { IAlertLogItem } from 'src/app/models/alert-log-item';
 import { PageEvent } from '@angular/material/paginator';
 import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
+import { IAlertLogList } from 'src/app/models/alert-log-list';
 
 @Component({
   selector: 'alert-log-table2-presenter',
@@ -17,14 +17,13 @@ import { IAlertLogFilter } from 'src/app/models/alert-log-filter';
 export class AlertLogTable2Presenter implements OnInit {
   pageNumber: number
   filterData: IAlertLogFilter
-  alertLogList: IAlertLogItem[]
+  alertLogList: IAlertLogList
 
   constructor(private alertLogService: AlertLogService) { }
 
   ngOnInit(): void {
     // this.filterData = this.alertLogService.latestFilterData
     this.alertLogList = this.alertLogService.alertLogList
-
   }
 
   getLogListWithPage(event: PageEvent) {

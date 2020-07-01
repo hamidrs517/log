@@ -46,7 +46,7 @@
     <mat-card-title>Alert Log List</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <table mat-table [dataSource]="alertLogList" class="table-container">
+    <table mat-table [dataSource]="alertLogList.alertLogItems" class="table-container">
 
       <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
 
@@ -84,8 +84,8 @@
 
     </table>
 
-    <mat-paginator #paginator [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]" [length]="alertLogList?.length"
-      (page)="getLogList.emit($event)">
+    <mat-paginator #paginator [pageIndex]="alertLogList.pageNumber" [pageSizeOptions]="[10,20,30,40,50]"
+      [length]="alertLogList?.total" (page)="getLogList.emit($event)">
     </mat-paginator>
   </mat-card-content>
 </mat-card>

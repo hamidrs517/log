@@ -1,7 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IAlertLogItem } from "../models/alert-log-item";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IAlertLogFilter } from '../models/alert-log-filter';
+import { IAlertLogList } from '../models/alert-log-list';
 @Injectable({
   providedIn: 'root'
 })
@@ -287,7 +288,7 @@ export class AlertLogService {
   latestFilterData: IAlertLogFilter
   private _searchData: BehaviorSubject<IAlertLogFilter> = new BehaviorSubject<IAlertLogFilter>(null)
   searchData$: Observable<IAlertLogFilter> = this._searchData.asObservable()
-  alertLogList: IAlertLogItem[];
+  alertLogList: IAlertLogList
 
   public setFilterData(alertLogFilter: IAlertLogFilter) {
     this._searchData.next(alertLogFilter);
@@ -298,7 +299,7 @@ export class AlertLogService {
       let emitedfilterData = res as IAlertLogFilter
       this.latestFilterData = { ...this.latestFilterData, ...emitedfilterData }
 
-      this.getAlertLogList(this.latestFilterData).then((res: IAlertLogItem[]) => {
+      this.getAlertLogList(this.latestFilterData).then((res: IAlertLogList) => {
         this.alertLogList = res
       }).catch(err => {
         console.error(err)
@@ -320,7 +321,14 @@ export class AlertLogService {
 
   async getAlertLogList(data) {
     console.log("fiter data in service:", data)
-    this.alertLogList = this.EXAMPLE_DATA
+    this.alertLogList = {
+      alertLogItems: this.EXAMPLE_DATA,
+      total: this.EXAMPLE_DATA.length,
+      pageSize: 10,
+      pageNumber: 1,
+      lastPage: this.EXAMPLE_DATA.length / 10,
+    }
+
     return await this.alertLogList
   }
 }

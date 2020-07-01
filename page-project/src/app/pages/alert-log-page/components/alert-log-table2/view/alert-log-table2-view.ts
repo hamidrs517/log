@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { IAlertLogItem } from 'src/app/models/alert-log-item';
-import { BreakpointObserver, Breakpoints, MediaMatcher, BreakpointState } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertLogFilterDialogPresenter } from '../../alert-log-filter-dialog/alert-log-filter-dialog-presenter';
+import { IAlertLogList } from 'src/app/models/alert-log-list';
 
 @Component({
   selector: 'alert-log-table2-view',
@@ -15,8 +14,9 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  @Input('alert-log-list') alertLogList: IAlertLogItem[];
+  @Input('alert-log-list') alertLogList: IAlertLogList;
   columns = [
     { columnDef: 'alertId', header: 'Alert Id', cell: (element: any) => `${element.alertId}` },
     { columnDef: 'logText', header: 'Log Text', cell: (element: any) => `${element.logText}` },
@@ -33,13 +33,14 @@ export class AlertLogTable2View implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.displayedColumns = this.columns.map(c => c.columnDef);
-    this.getLogList.emit({
-      pageIndex: 0,
-      pageSize: 10
-    } as PageEvent)
   }
 
-  ngAfterViewInit() { }
+  ngAfterViewInit() {
+    this.getLogList.emit({
+      pageIndex: this.paginator.pageIndex,
+      pageSize: this.paginator.pageSize
+    } as PageEvent)
+  }
 
   showDetails(rowData: IAlertLogItem): void {
     const dialogRef = this.dialog.open(AlertLogFilterDialogPresenter, {
